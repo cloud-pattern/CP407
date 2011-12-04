@@ -65,4 +65,4 @@ print swaps, "swaps"
 #record result
 if sys.argv[2] == 'r':
 	writer = csv.writer(open('ms.csv','a'))
-	writer.writerows([ (entries, counter, timer, swaps) ])
+	writer.writerows([ (entries, counter, timer) ])
