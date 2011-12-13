@@ -4,8 +4,8 @@ import random, sys
 
 #if len(sys.argv) > 1: number_of_nodes = int(sys.argv[1])
 #else: number_of_nodes = 10
-number_of_nodes = 10
-
+#number_of_nodes = int(sys.argv[1])
+number_of_nodes = 5
 graph = []
 
 def complete_graph(number_of_nodes):
@@ -18,6 +18,27 @@ def complete_graph(number_of_nodes):
 				edge_value = random.randint(1,10)
 				graph.append([from_node, to_node, edge_value])
 	return graph
+
+def complete_graph_tuples(number_of_nodes):
+	graph = []
+	for i in range(number_of_nodes):
+		from_node = str(i)
+		for j in range(number_of_nodes):
+			if j > i:
+				to_node = str(j)
+				edge_value = random.randint(1,10)
+				graph.append((from_node, to_node, edge_value))
+	return graph
+
+def remove_edges(graph):
+	length = len(graph)-1
+	print 'Removing edges: '
+	for i in range(length):
+		if i < len(graph):
+			delete = random.randint(1,10)
+			if delete < 6: #***CHANGE THIS NUMBER***
+				p = graph.pop(i)
+				print p
 
 def one_edge_each(graph, number_of_nodes):
 
@@ -47,7 +68,8 @@ def cheater_route(graph, number_of_nodes):
 	#append an edge that goes from start to end with distance of 1
 	graph.append([0,number_of_nodes-1,1])
 
-if __name__ == 'main':
-	complete_graph(graph, number_of_nodes)
 
-	print graph
+#graph = complete_graph_tuples(number_of_nodes)
+#remove_edges(graph)
+#print graph
+

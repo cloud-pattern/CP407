@@ -63,28 +63,3 @@ print swaps, "swaps"
 if sys.argv[2] == 'r':
 	writer = csv.writer(open('qs.csv','a'))
 	writer.writerows([ (entries, counter, timer, swaps) ])
-
-"""
-def partition(low, high):
-	global sortlist
-	global counter
-	global swaps
-	pivot_item = sortlist[low]
-	j = low
-	print '*****partitioning from ', low, ' to ', high, ' on the pivot item ', pivot_item
-	for i in range(low +1, high):
-		counter+=1
-		if sortlist[i] < pivot_item:
-			j+=1
-			swaps +=1
-			print 'swaping', str(sortlist[i]), 'and', str(sortlist[j])
-			sortlist[i], sortlist[j] = sortlist[j], sortlist[i]
-	pivot = j
-	swaps +=1
-	print 'now swaping', str(sortlist[low]), 'and', str(sortlist[pivot])
-	sortlist[low], sortlist[pivot] = sortlist[pivot], sortlist[low]
-	print sortlist
-	print 'returning the index', str(pivot), 'as pivot'
-	return pivot
-
-"""

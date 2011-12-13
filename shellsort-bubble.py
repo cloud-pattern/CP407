@@ -1,5 +1,5 @@
 #Robert Florance
-#Shell Sort | 12.3.2011 | CP407
+#Shell Sort w/ Bubble Sort| 12.3.2011 | CP407
 import math, time, sys, csv, random
 from decimal import Decimal
 
@@ -18,22 +18,21 @@ def shellSort(sortlist):
 	interval = len(sortlist) // 2 #start with n/2
 	while interval > 0:
 		
-		if sys.argv[2] == 'p': print 'interval: ', interval 
+		if sys.argv[2] == 'p': print 'INTERVAL: ', interval 
 		for i in range(interval, len(sortlist)):
 			val = sortlist[i]
 			j = i
-			#Do insertions sort:
-			while j >= interval and sortlist[j - interval] > val:
-				counter +=1
+			#do bubble sort:
+			while j >= interval and sortlist[j-interval] > val:
+				print 'swp: ', sortlist[j], sortlist[j-interval]
 				swaps +=1
-				sortlist[j] = sortlist[j - interval]
+				counter +=1
+				sortlist[j], sortlist[j-interval] = sortlist[j-interval], sortlist[j]	
 				j -= interval
-			sortlist[j] = val
-			swaps +=1
 		interval //= 2 #now n/4 .. 1
 	return sortlist
 
-for i in range(20):	
+for i in range(20):
 
 	#shuffle the list we are working with
 	random.shuffle(sortlist)
@@ -49,7 +48,6 @@ swaps = math.floor(swaps/20)
 timer = timer/20
 timer =  Decimal(timer).quantize(Decimal('0.000000000'))
 
-
 #print results
 if sys.argv[2] == 'p': print result
 print entries, "entries in list"
@@ -59,5 +57,6 @@ print swaps, "avg. swaps"
 
 #record result
 if sys.argv[2] == 'r':
-	writer = csv.writer(open('ss.csv','a'))
+	writer = csv.writer(open('ssb.csv','a'))
 	writer.writerows([ (entries, counter, timer, swaps) ])
+

@@ -59,34 +59,3 @@ random.shuffle(array)
 t0 = time.clock()
 sortHeap() 
 timer += time.clock() - t0
-
-
-"""
-for i in range(20):	
-
-	#shuffle the list we are working with
-	random.shuffle(array)
-
-	#time the algorithm
-	t0 = time.clock()
-	sortHeap() 
-	timer += time.clock() - t0
-
-# take averages
-counter = math.floor(counter/20)
-swaps = math.floor(swaps/20)
-timer = timer/20
-timer =  Decimal(timer).quantize(Decimal('0.000000000'))
-
-#print results
-if sys.argv[2] == 'p': print result
-print entries, "entries in list"
-print counter, "steps"
-print timer, "timer process time" 
-print swaps, "swaps"
-
-#record result
-if sys.argv[2] == 'r':
-	writer = csv.writer(open('es.csv','a'))
-	writer.writerows([ (entries, counter, timer, swaps) ])
-"""
