@@ -53,20 +53,23 @@ def prims(nodes, graph):
 
 graph = complete_graph_tuples(num_nodes)
 remove_edges(graph)
-print 'Graph: ', graph
+
+if sys.argv[2] == 'p': print 'Graph: ', graph
 nodes2 = []
 for i in range(num_nodes):
 	nodes2.append(str(i))
-#nodes = list("01234") 
-#print 'nodes', nodes
-print 'nodes', nodes2
+
+if sys.argv[2] == 'p': print 'nodes', nodes2
 t0 = time.clock()
 result = prims(nodes2, graph)
 timer += time.clock() - t0
 timer = Decimal(timer).quantize(Decimal('0.000000000'))
 
-print 'minimum spanning tree: ', result
+if sys.argv[2] == 'p': print 'minimum spanning tree: ', result
+print 'length: ', num_nodes
 print 'steps: ', counter
 print 'time: ', timer
-#output
-#[('A', 'D', 5), ('D', 'F', 6), ('A', 'B', 7), ('B', 'E', 7), ('E', 'C', 5), ('E', 'G', 9)]
+
+if sys.argv[2] == 'r':
+    writer = csv.writer(open('prm.csv', 'a'))
+    writer.writerows([ (num_nodes, counter, timer) ])

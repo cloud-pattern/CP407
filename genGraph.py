@@ -1,12 +1,5 @@
 #Generate connected graphs
-
 import random, sys
-
-#if len(sys.argv) > 1: number_of_nodes = int(sys.argv[1])
-#else: number_of_nodes = 10
-#number_of_nodes = int(sys.argv[1])
-number_of_nodes = 5
-graph = []
 
 def complete_graph(number_of_nodes):
 	graph = []
@@ -32,13 +25,13 @@ def complete_graph_tuples(number_of_nodes):
 
 def remove_edges(graph):
 	length = len(graph)-1
-	print 'Removing edges: '
+	#print 'Removing edges: '
 	for i in range(length):
 		if i < len(graph):
 			delete = random.randint(1,10)
 			if delete < 6: #***CHANGE THIS NUMBER***
 				p = graph.pop(i)
-				print p
+				#print p
 
 def one_edge_each(graph, number_of_nodes):
 
@@ -69,6 +62,8 @@ def cheater_route(graph, number_of_nodes):
 	graph.append([0,number_of_nodes-1,1])
 
 
+#number_of_nodes = 5
+#graph = []
 #graph = complete_graph_tuples(number_of_nodes)
 #remove_edges(graph)
 #print graph

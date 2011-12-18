@@ -1,13 +1,14 @@
 #Dijkstra's Algorithm
 #Robert Florance | 11.17.11 | CP407
-import sys, genGraph
+import sys, genGraph, math, time, sys, csv, random
+from decimal import Decimal
 
 graphs = {
 		'GRAPH_1':[[0,1,1],[0,3,7],[1,2,1],[2,3,3],[2,4,7],[3,4,2]], #01234
 		'GRAPH_2':[[0,1,7],[0,3,1],[1,2,1],[2,3,3],[2,4,7],[3,4,2]], #034
 		'GRAPH_3':[[0,1,7],[0,2,9],[0,5,14],[1,2,1],[1,3,5],[2,3,1],[2,5,4],[3,4,1],[4,5,1]], #012345
 		'GRAPH_4':[[0, 1, 1], [1, 2, 1], [2, 3, 1], [3, 4, 1], [0, 2, 3], [1, 2, 9], [2, 3, 3], [3, 2, 9], [4, 1, 2]], #01234
-		'GRAPH-GEN' : genGraph.complete_graph(5)
+		'GRAPH-GEN' : genGraph.complete_graph(int(sys.argv[1]))
 	}
 
 GRAPH = []
@@ -19,8 +20,9 @@ prev_nodes = []
 
 counter = 0
 
-GRAPH = graphs[sys.argv[1]]
+GRAPH = graphs['GRAPH-GEN']
 print 'GRAPH: ', GRAPH
+#GRAPH = genGraph.remove_edges(GRAPH)
 
 #using the graph list of lists, make a list of nodes in the graph
 for edge in GRAPH:
@@ -65,11 +67,15 @@ def relax_neighbors(node):
 					distances[edge[1]] = distances[edge[0]] + edge[2] #update distance
 					prev_nodes[edge[1]] = edge[0] #update previous node
 					live_nodes.append(edge[1]) #make this node live	
+t0 = time.clock() 
 while len(live_nodes) > 0:
 	
 	u = extract_min()
 	dead_nodes.append(u)
 	relax_neighbors(u)
+
+timer = time.clock() - t0
+timer = Decimal(timer).quantize(Decimal('0.000000000'))
 
 def print_route(node):
 	global prev_nodes
@@ -77,10 +83,18 @@ def print_route(node):
 	if prev_nodes[prev_nodes[node]]: print_route(prev_nodes[node]) 
 
 end = len(NODES) -1
+length = len(NODES)
 
-print 'Best Route: '
-print end
-print_route(end)
-print 'With a distance of: ', distances[end]
+if sys.argv[2] == 'p': 
+    print 'Best Route: '
+    print end
+    print_route(end)
+    print 'With a distance of: ', distances[end]
 
+print length, "nodes"
 print counter, "steps taken"
+print timer, "process time" 
+
+if sys.argv[2] == 'r':
+    writer = csv.writer(open('djk.csv', 'a'))
+    writer.writerows([ (length, counter, timer) ])

@@ -24,7 +24,7 @@ def shellSort(sortlist):
 			j = i
 			#do bubble sort:
 			while j >= interval and sortlist[j-interval] > val:
-				print 'swp: ', sortlist[j], sortlist[j-interval]
+				#print 'swp: ', sortlist[j], sortlist[j-interval]
 				swaps +=1
 				counter +=1
 				sortlist[j], sortlist[j-interval] = sortlist[j-interval], sortlist[j]	

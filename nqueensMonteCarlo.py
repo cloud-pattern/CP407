@@ -7,9 +7,15 @@ numnodes = 1
 m = 1
 mprod = 1
 
+total = 0
+
+board_size = int(sys.argv[1])
+solution_list = array.array('i', [0]* (board_size + 1)) 
+
 def nqueen(current_row, num_row, solution_list):
-    global mprod, numnodes, m
+    global mprod, numnodes, m, total
     if current_row == num_row: 
+        total += numnodes
         print 'reached end, numnodes =', numnodes
     else:
         current_row += 1
@@ -23,6 +29,7 @@ def nqueen(current_row, num_row, solution_list):
             nqueen(current_row, num_row, solution_list) 
             solution_list[current_row] = 0 
         else:
+            total += numnodes
             print 'no child returned, numnodes =', numnodes 
 
 #Generate all the promising children, return how many there are + only one of them
@@ -41,8 +48,23 @@ def gen_next_moves(a_row, solution_list, num_of_rows):
     else:
         return None, None
 
-board_size = int(sys.argv[1])
-solution_list = array.array('i', [0]* (board_size + 1)) 
+REPEAT = int(sys.argv[2])
 
-nqueen(0, board_size, solution_list) #pass: START ROW, NUMBER OF ROWS, SOLUTION LIST
-total_nodes = ((board_size**(board_size+1)-1)/(board_size-1))/1.0
+for i in range(REPEAT):
+    nqueen(0, board_size, solution_list) #pass: START ROW, NUMBER OF ROWS, SOLUTION LIST
+
+    #Reset Values:
+    numnodes = 1
+    m = 1
+    mprod = 1
+
+    board_size = int(sys.argv[1])
+    solution_list = array.array('i', [0]* (board_size + 1)) 
+
+
+prediction = total/REPEAT
+print 'avg nodes_visited', prediction
+
+if sys.argv[3] == 'r':
+        writer = csv.writer(open('nqmc.csv', 'a'))
+        writer.writerows([ (board_size, prediction) ])

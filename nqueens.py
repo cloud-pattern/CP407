@@ -41,8 +41,14 @@ t0 = time.clock()
 nqueen(0, board_size, solution_list) #pass: START ROW, NUMBER OF ROWS, SOLUTION LIST
 timer = time.clock() -t0
 total_nodes = ((board_size**(board_size+1)-1)/(board_size-1))/1.0
+percent_visited = (nodes_visited/total_nodes)*100
+precent_visited = Decimal(percent_visited).quantize(Decimal('0.0000000000'))
 print '# of solutions', solution_count
 print 'Process time', timer
 print 'Nodes visited', nodes_visited
 print 'Total nodes', total_nodes
-print '% visited', (nodes_visited/total_nodes)*100
+print '% visited', percent_visited 
+
+if sys.argv[2] == 'r':
+    writer = csv.writer(open('nq.csv', 'a'))
+    writer.writerows([ (board_size, nodes_visited, timer, total_nodes, percent_visited) ])
